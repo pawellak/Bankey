@@ -10,6 +10,13 @@ import UIKit
 
 class OnboardingViewController : UIViewController {
     
+    init(_ model: OnboardingModel) {
+        self.model = model
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    let model : OnboardingModel
+    
     let stackView = UIStackView()
     let imageVIew = UIImageView()
     let label = UILabel()
@@ -18,6 +25,10 @@ class OnboardingViewController : UIViewController {
         super.viewDidLoad()
         style()
         layout()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -31,14 +42,15 @@ extension OnboardingViewController{
         //Image
         imageVIew.translatesAutoresizingMaskIntoConstraints = false
         imageVIew.contentMode = .scaleToFill
-        imageVIew.image = UIImage(named: "delorean")
+        imageVIew.image = UIImage(named: model.imagePath)
+        imageVIew.backgroundColor = model.backgroundColor
         
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
-        label.text = "Lorem Ipsum 123 Lorem Ipsum 123 Lorem Ipsum 123 Lorem Ipsum 123 Lorem Ipsum 123 Lorem Ipsum 123"
+        label.text = model.title
 
     }
     

@@ -17,12 +17,19 @@ class OnboardingContainerViewController: UIViewController {
         }
     }
     
+    
+    let onboardingsPages = [
+        OnboardingModel(title: "title1", imagePath: "delorean",backgroundColor: UIColor.red),
+        OnboardingModel(title: "title2", imagePath: "world",backgroundColor: UIColor.green),
+        OnboardingModel(title: "title3", imagePath: "thumbs",backgroundColor: UIColor.blue)
+    ]
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         
-        let page1 = ViewController1()
-        let page2 = ViewController2()
-        let page3 = ViewController3()
+        let page1 = OnboardingViewController(onboardingsPages[0])
+        let page2 = OnboardingViewController(onboardingsPages[1])
+        let page3 = OnboardingViewController(onboardingsPages[2])
         
         pages.append(page1)
         pages.append(page2)
@@ -90,27 +97,5 @@ extension OnboardingContainerViewController: UIPageViewControllerDataSource {
 
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         return pages.firstIndex(of: self.currentVC) ?? 0
-    }
-}
-
-// MARK: - ViewControllers
-class ViewController1: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemRed
-    }
-}
-
-class ViewController2: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemGreen
-    }
-}
-
-class ViewController3: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemBlue
     }
 }
