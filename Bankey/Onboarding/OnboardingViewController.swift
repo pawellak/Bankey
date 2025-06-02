@@ -21,6 +21,7 @@ class OnboardingViewController : UIViewController {
     let imageVIew = UIImageView()
     let label = UILabel()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         style()
