@@ -19,7 +19,9 @@ class LoginView : UIView {
     override init(frame: CGRect) {
     
         super.init(frame:frame)
-   
+        
+        
+
         style()
         layout()
 
@@ -44,6 +46,7 @@ extension LoginView {
     {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .secondarySystemBackground
+      
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -73,6 +76,7 @@ extension LoginView {
         stackView.addArrangedSubview(dividerView)
         stackView.addArrangedSubview(passwordTextField)
         
+
         addSubview(stackView)
        
         NSLayoutConstraint.activate([

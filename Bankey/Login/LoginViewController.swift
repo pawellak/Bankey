@@ -7,6 +7,14 @@
 
 import UIKit
 
+protocol LogoutDelegate: AnyObject {
+    func didLogout()
+}
+
+protocol LoginViewControllerDelegate: AnyObject {
+    func didLogin()
+}
+
 class LoginViewController: UIViewController {
 
     let loginView = LoginView()
@@ -22,6 +30,8 @@ class LoginViewController: UIViewController {
     }()
     
     let signInButton = UIButton(type: .system)
+    
+    weak var delegate : LoginViewControllerDelegate?
     
     var userName: String? {
         return loginView.usernameTextField.text
@@ -48,11 +58,19 @@ class LoginViewController: UIViewController {
         style()
         layout()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        signInButton.configuration?.showsActivityIndicator = false
+    }
 }
 
 extension LoginViewController {
     
     private func style() {
+        view.backgroundColor = .systemOrange
+        
+        
         loginView.translatesAutoresizingMaskIntoConstraints=false
         signInButton.translatesAutoresizingMaskIntoConstraints=false
         signInButton.configuration = .filled()
@@ -95,13 +113,6 @@ extension LoginViewController {
             errorMessageLabel.trailingAnchor.constraint(equalTo: loginView.trailingAnchor),
         ])
         
-        
-//                NSLayoutConstraint.activate([
-//                    viewTitle.topAnchor.constraint(equalToSystemSpacingBelow: errorMessageLabel.bottomAnchor, multiplier: 2),
-//                    viewTitle.leadingAnchor.constraint(equalTo: loginView.leadingAnchor),
-//                    viewTitle.trailingAnchor.constraint(equalTo: loginView.trailingAnchor),
-//        
-//                ])
     }
 }
 
@@ -124,24 +135,18 @@ extension LoginViewController {
             return
         }
         
-        if userName=="Pawel" && password == "Welcome"
+        if userName=="AB" && password == "AB"
         {
             signInButton.configuration?.showsActivityIndicator = true
+            delegate?.didLogin()
         }else
         {
             configureViews(withMessage: "incorrect username or password")
         }
     }
     
-    
     private func configureViews(withMessage message:String) {
         errorMessageLabel.isHidden=false
         errorMessageLabel.text=message
     }
-    
     }
-
-
-
-
-

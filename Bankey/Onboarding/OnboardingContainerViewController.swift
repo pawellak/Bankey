@@ -8,12 +8,18 @@
 import Foundation
 import UIKit
 
+protocol OnboardingContainerViewControllerDelegate: AnyObject {
+    func didFinishOnboarding()
+}
+
 class OnboardingContainerViewController: UIViewController {
 
     let pageViewController: UIPageViewController
     var pages = [UIViewController]()
+    weak var delegate: OnboardingContainerViewControllerDelegate?
     var currentVC: UIViewController
     var closeButton = UIButton(type: .system)
+    var doneButton = UIButton(type: .system)
     
     let onboardingsPages = [
         OnboardingModel(title: "title1", imagePath: "delorean",backgroundColor: UIColor.red),
@@ -49,7 +55,7 @@ class OnboardingContainerViewController: UIViewController {
     }
     
     private func setup() {
-        view.backgroundColor = .systemPurple
+        view.backgroundColor = .lightGray
         
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
@@ -75,13 +81,24 @@ class OnboardingContainerViewController: UIViewController {
         closeButton.setTitle("Close", for: [])
         closeButton.addTarget(self, action: #selector(closeTapped), for: .primaryActionTriggered)
         
+        
+        doneButton.translatesAutoresizingMaskIntoConstraints = false
+        doneButton.setTitle("Done", for: [])
+        doneButton.addTarget(self, action: #selector(doneTapped), for: .primaryActionTriggered)
+        
         view.addSubview(closeButton)
+        view.addSubview(doneButton)
     }
     
     private func layout() {
         NSLayoutConstraint.activate([
             closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 32),
             closeButton.topAnchor.constraint(equalTo: view.topAnchor,constant: 64)
+        ])
+        
+        NSLayoutConstraint.activate([
+            doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -32),
+            doneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -64)
         ])
     }
 }
@@ -122,8 +139,18 @@ extension OnboardingContainerViewController: UIPageViewControllerDataSource {
 
 extension OnboardingContainerViewController
 {
-    @objc func closeTapped(_ sender: UIButton)
-    {
-        print("skipTapped")
+    @objc func closeTapped(_ sender: UIButton) {
+        delegate?.didFinishOnboarding()
     }
+    
+    @objc func doneTapped(_ sender: UIButton) {
+        delegate?.didFinishOnboarding()
+    }
+}
+
+extension AppDelegate
+{
+    
+    
+    
 }
