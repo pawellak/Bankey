@@ -52,6 +52,8 @@ class OnboardingContainerViewController: UIViewController {
         setup()
         style()
         layout()
+        
+        
     }
     
     private func setup() {
