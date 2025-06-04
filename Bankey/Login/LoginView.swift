@@ -19,23 +19,14 @@ class LoginView : UIView {
     override init(frame: CGRect) {
     
         super.init(frame:frame)
-   
         style()
         layout()
-
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    override var intrinsicContentSize: CGSize {
-//        return CGSize(width: 200, height: 200)
-//    }
 }
-
-
-
 
 extension LoginView {
     
@@ -44,7 +35,7 @@ extension LoginView {
     {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .secondarySystemBackground
-        
+      
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 8
@@ -61,7 +52,6 @@ extension LoginView {
         dividerView.translatesAutoresizingMaskIntoConstraints = false
         dividerView.backgroundColor = .secondarySystemFill
         
-        
         layer.cornerRadius = 5
         clipsToBounds = true
     }
@@ -72,7 +62,7 @@ extension LoginView {
         stackView.addArrangedSubview(usernameTextField)
         stackView.addArrangedSubview(dividerView)
         stackView.addArrangedSubview(passwordTextField)
-        
+
         addSubview(stackView)
        
         NSLayoutConstraint.activate([
@@ -94,7 +84,6 @@ extension LoginView: UITextFieldDelegate {
         return true
     }
     
-    
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
       return true
     }
@@ -102,6 +91,5 @@ extension LoginView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
     }
-    
     
 }
