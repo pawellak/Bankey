@@ -27,11 +27,6 @@ class DummyViewController : UIViewController {
         style()
         layout()
     }
-    
-    
-  
-    
-    
 }
 
 extension DummyViewController{
