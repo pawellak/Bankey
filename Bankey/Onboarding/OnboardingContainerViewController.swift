@@ -53,7 +53,6 @@ class OnboardingContainerViewController: UIViewController {
         style()
         layout()
         
-        
     }
     
     private func setup() {
@@ -82,7 +81,6 @@ class OnboardingContainerViewController: UIViewController {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.setTitle("Close", for: [])
         closeButton.addTarget(self, action: #selector(closeTapped), for: .primaryActionTriggered)
-        
         
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         doneButton.setTitle("Done", for: [])
@@ -148,11 +146,4 @@ extension OnboardingContainerViewController
     @objc func doneTapped(_ sender: UIButton) {
         delegate?.didFinishOnboarding()
     }
-}
-
-extension AppDelegate
-{
-    
-    
-    
 }

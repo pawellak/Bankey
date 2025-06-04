@@ -70,7 +70,6 @@ extension LoginViewController {
     private func style() {
         view.backgroundColor = .systemOrange
         
-        
         loginView.translatesAutoresizingMaskIntoConstraints=false
         signInButton.translatesAutoresizingMaskIntoConstraints=false
         signInButton.configuration = .filled()
@@ -100,7 +99,6 @@ extension LoginViewController {
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: loginView.trailingAnchor, multiplier: 1)
         ])
         
-        
         NSLayoutConstraint.activate([
             signInButton.topAnchor.constraint(equalToSystemSpacingBelow: loginView.bottomAnchor,  multiplier: 2),
             signInButton.leadingAnchor.constraint(equalTo: loginView.leadingAnchor),
@@ -124,7 +122,7 @@ extension LoginViewController {
     private func login() {
         guard let userName = userName,
               let password = password
-      
+                
         else {
             assertionFailure("username should never be nill")
             return
@@ -149,4 +147,4 @@ extension LoginViewController {
         errorMessageLabel.isHidden=false
         errorMessageLabel.text=message
     }
-    }
+}

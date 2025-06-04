@@ -8,9 +8,6 @@
 import Foundation
 import UIKit
 
-
-
-
 class OnboardingViewController : UIViewController {
     
     init(_ model: OnboardingModel) {
