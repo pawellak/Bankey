@@ -8,15 +8,32 @@
 import UIKit
 
 class AccountSummaryViewController: UIViewController {
-    
  
-    var accounts : [AccountSummaryCell.ViewModel] = []
+    @objc func onLogautPressed(sender: UIBarButtonItem)
+    {
+        
+        
+    }
+
     
+    var accounts : [AccountSummaryCell.ViewModel] = []
     var tableView = UITableView()
+    
+    lazy var logoutBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self,action: #selector(onLogautPressed))
+        barButtonItem.tintColor = .label
+        
+        return barButtonItem
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        setupNavigationBar()
+    }
+    
+    private func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = logoutBarButtonItem
     }
 }
 
@@ -37,6 +54,7 @@ extension AccountSummaryViewController {
         tableView.tableFooterView = UIView()
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
@@ -66,7 +84,6 @@ extension AccountSummaryViewController: UITableViewDataSource {
         let account = accounts[indexPath.row]
         cell.configure(with: account)
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -76,7 +93,7 @@ extension AccountSummaryViewController: UITableViewDataSource {
 
 extension AccountSummaryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+    
     }
 }
 
@@ -108,3 +125,4 @@ extension AccountSummaryViewController {
         accounts.append(investment2)
     }
 }
+
