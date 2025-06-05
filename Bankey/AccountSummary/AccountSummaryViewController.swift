@@ -9,10 +9,8 @@ import UIKit
 
 class AccountSummaryViewController: UIViewController {
  
-    @objc func onLogautPressed(sender: UIBarButtonItem)
-    {
-        
-        
+    @objc func onLogautPressed(sender: UIBarButtonItem) {
+        NotificationCenter.default.post(name: .logout, object: nil)
     }
 
     
