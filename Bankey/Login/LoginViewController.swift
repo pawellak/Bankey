@@ -88,9 +88,6 @@ extension LoginViewController {
         signInButton.configuration?.imagePadding = 8
         signInButton.setTitle("Sign In", for: [])
         signInButton.addTarget(self, action:#selector(signInTapped), for: .primaryActionTriggered)
-        
-        
-        
     }
     
     private func layout() {
