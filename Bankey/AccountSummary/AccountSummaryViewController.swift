@@ -13,7 +13,6 @@ class AccountSummaryViewController: UIViewController {
         NotificationCenter.default.post(name: .logout, object: nil)
     }
 
-    
     var accounts : [AccountSummaryCell.ViewModel] = []
     var tableView = UITableView()
     

@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().backgroundColor = appColor
         
-        window?.rootViewController = viCon
+        window?.rootViewController = loginViewController
         
         return true
     }
