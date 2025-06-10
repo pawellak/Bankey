@@ -7,8 +7,6 @@
 
 import Foundation
 
-extension Notification.Name
-{
+extension Notification.Name {
     static let logout = Notification.Name("Logout")
-    
 }

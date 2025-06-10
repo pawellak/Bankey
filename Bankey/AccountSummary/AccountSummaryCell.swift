@@ -8,16 +8,15 @@
 import Foundation
 import UIKit
 
+enum AccountType: String,Codable {
+    case Banking
+    case CreditCard
+    case Investment
+}
+
 class AccountSummaryCell : UITableViewCell {
     
-    enum AccountType: String {
-        case Banking
-        case CreditCard
-        case Investment
-    }
-    
-    struct ViewModel
-    {
+    struct ViewModel {
         let accountType: AccountType
         let accountName:String
         let balance:Decimal
@@ -25,8 +24,6 @@ class AccountSummaryCell : UITableViewCell {
         var balanceAttributeString: NSAttributedString {
             return CurrencyFormatter().makeAttributedCurrency(balance)
         }
-        
-
     }
     
     let viewModel : ViewModel? = nil
@@ -46,12 +43,8 @@ class AccountSummaryCell : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        
         setup()
         layout()
-        
-        
     }
     
     required init?(coder: NSCoder) {
@@ -59,9 +52,7 @@ class AccountSummaryCell : UITableViewCell {
     }
 }
 
-
-extension AccountSummaryCell
-{
+extension AccountSummaryCell {
     private func setup() {
         typeLabel.translatesAutoresizingMaskIntoConstraints = false
         typeLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
@@ -95,21 +86,6 @@ extension AccountSummaryCell
         contentView.addSubview(balanceStackView)
         contentView.addSubview(chevronImageView)
     }
-//    
-//    private func makeFormattedBalance(dollars: String, cents: String) -> NSMutableAttributedString {
-//            let dollarSignAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .callout), .baselineOffset: 8]
-//            let dollarAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .title1)]
-//            let centAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .footnote), .baselineOffset: 8]
-//            
-//            let rootString = NSMutableAttributedString(string: "$", attributes: dollarSignAttributes)
-//            let dollarString = NSAttributedString(string: dollars, attributes: dollarAttributes)
-//            let centString = NSAttributedString(string: cents, attributes: centAttributes)
-//            
-//            rootString.append(dollarString)
-//            rootString.append(centString)
-//            
-//            return rootString
-//        }
     
     private func layout() {
         NSLayoutConstraint.activate([
@@ -141,9 +117,8 @@ extension AccountSummaryCell {
         nameLabel.text = vm.accountName
         balanceAmountLabel.attributedText = vm.balanceAttributeString
         
-        switch vm.accountType
-        {
-            
+        switch vm.accountType {
+
         case .Banking:
             divider.backgroundColor = appColor
             balanceLabel.text = "Balance"
@@ -156,6 +131,4 @@ extension AccountSummaryCell {
         }
        
     }
-    
 }
- 

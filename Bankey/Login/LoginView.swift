@@ -30,8 +30,7 @@ class LoginView : UIView {
 
 extension LoginView {
     
-    func style()
-    {
+    func style() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .secondarySystemBackground
       
@@ -52,14 +51,11 @@ extension LoginView {
         dividerView.translatesAutoresizingMaskIntoConstraints = false
         dividerView.backgroundColor = .secondarySystemFill
         
-        
         layer.cornerRadius = 5
         clipsToBounds = true
     }
     
-    func layout()
-    {
-        
+    func layout() {
         stackView.addArrangedSubview(usernameTextField)
         stackView.addArrangedSubview(dividerView)
         stackView.addArrangedSubview(passwordTextField)
