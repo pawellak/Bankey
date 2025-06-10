@@ -57,7 +57,7 @@ struct Account: Codable {
 
 extension AccountSummaryViewController {
     func fetchAccounts(forUserId userId: String, completion: @escaping (Result<[Account],NetworkError>) -> Void) {
-        let url = URL(string: "https://fierce-retreat-36855.herokuapp.com/bankey/profile/\(userId)/accounts")!
+        let url = URL(string: "https://www.google.com/")!
 
         URLSession.shared.dataTask(with: url) { data, response, error in
             DispatchQueue.main.async {
@@ -68,10 +68,16 @@ extension AccountSummaryViewController {
                 
                 do {
                     let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .iso8601
+//                    decoder.dateDecodingStrategy = .iso8601
+//                    
+//                    let accounts = try decoder.decode([Account].self, from: data)
                     
-                    let accounts = try decoder.decode([Account].self, from: data)
-                    completion(.success(accounts))
+                    let accountList = [
+                        Account(id: "1", type: AccountType.Banking, name: "Banking", amount: 12.14, createdDateTime: Date()),
+                        Account(id: "2", type: AccountType.CreditCard, name: "CreditCard", amount: 12.11, createdDateTime: Date()),
+                        Account(id: "3", type: AccountType.Investment, name: "Investment", amount: 11232.44, createdDateTime: Date())] as [Account]
+                    
+                    completion(.success(accountList))
                 } catch {
                     completion(.failure(.decodingError))
                 }
