@@ -31,17 +31,18 @@ extension AccountSummaryViewController {
 
         URLSession.shared.dataTask(with: url) { data, response, error in
             DispatchQueue.main.async {
-                guard let data = data, error == nil else {
-                    completion(.failure(.serverError))
-                    return
-                }
-                
-                do {
-                  
-                    completion(.success(Profile(id: "1", firstName: "firstNamePawel", lastName: "lastNameLak")))
-                } catch {
-                    completion(.failure(.decodingError))
-                }
+                completion(.success(Profile(id: "1", firstName: "firstNamePawel", lastName: "lastNameLak")))
+//                guard let data = data, error == nil else {
+//                    completion(.failure(.serverError))
+//                    return
+//                }
+//                
+//                do {
+//                  
+//                    completion(.success(Profile(id: "1", firstName: "firstNamePawel", lastName: "lastNameLak")))
+//                } catch {
+//                    completion(.failure(.decodingError))
+//                }
             }
         }.resume()
     }
@@ -61,26 +62,34 @@ extension AccountSummaryViewController {
 
         URLSession.shared.dataTask(with: url) { data, response, error in
             DispatchQueue.main.async {
-                guard let data = data, error == nil else {
-                    completion(.failure(.serverError))
-                    return
-                }
                 
-                do {
-                    let decoder = JSONDecoder()
-//                    decoder.dateDecodingStrategy = .iso8601
+                let accountList = [
+                    Account(id: "1", type: AccountType.Banking, name: "Banking", amount: 12.14, createdDateTime: Date()),
+                    Account(id: "2", type: AccountType.CreditCard, name: "CreditCard", amount: 12.11, createdDateTime: Date()),
+                    Account(id: "3", type: AccountType.Investment, name: "Investment", amount: 11232.44, createdDateTime: Date())] as [Account]
+                
+                completion(.success(accountList))
+                
+//                guard let data = data, error == nil else {
+//                    completion(.failure(.serverError))
+//                    return
+//                }
+//                
+//                do {
+//                    let decoder = JSONDecoder()
+////                    decoder.dateDecodingStrategy = .iso8601
+////                    
+////                    let accounts = try decoder.decode([Account].self, from: data)
 //                    
-//                    let accounts = try decoder.decode([Account].self, from: data)
-                    
-                    let accountList = [
-                        Account(id: "1", type: AccountType.Banking, name: "Banking", amount: 12.14, createdDateTime: Date()),
-                        Account(id: "2", type: AccountType.CreditCard, name: "CreditCard", amount: 12.11, createdDateTime: Date()),
-                        Account(id: "3", type: AccountType.Investment, name: "Investment", amount: 11232.44, createdDateTime: Date())] as [Account]
-                    
-                    completion(.success(accountList))
-                } catch {
-                    completion(.failure(.decodingError))
-                }
+//                    let accountList = [
+//                        Account(id: "1", type: AccountType.Banking, name: "Banking", amount: 12.14, createdDateTime: Date()),
+//                        Account(id: "2", type: AccountType.CreditCard, name: "CreditCard", amount: 12.11, createdDateTime: Date()),
+//                        Account(id: "3", type: AccountType.Investment, name: "Investment", amount: 11232.44, createdDateTime: Date())] as [Account]
+//                    
+//                    completion(.success(accountList))
+//                } catch {
+//                    completion(.failure(.decodingError))
+//                }
             }
         }.resume()
     }
