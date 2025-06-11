@@ -157,7 +157,7 @@ extension AccountSummaryViewController {
             case .success(let profile):
                 self.profile = profile
             case .failure(let error):
-                print(error.localizedDescription)
+                self.showErrorDialog(error)
             }
         }
         group.leave()
@@ -168,7 +168,7 @@ extension AccountSummaryViewController {
             case .success(let accounts):
                 self.accounts = accounts
               case .failure(let error):
-                print(error.localizedDescription)
+                self.showErrorDialog(error)
             }
         group.leave()
         }
@@ -190,11 +190,27 @@ extension AccountSummaryViewController {
         headerView.configure(viewModel: vm)
     }
     
+    private func showErrorAlert(_ message:String) {
+        let alertController = UIAlertController(title: message, message: "Something went wrong", preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default,handler: nil)
+        alertController.addAction(alertAction)
+        present(alertController, animated: true,completion: nil)
+    }
+    
     private func configureTableCells(with accounts: [Account]) {
         accountCellViewModels = accounts.map {
             AccountSummaryCell.ViewModel(accountType: $0.type,
                                          accountName: $0.name,
                                          balance: $0.amount)
+        }
+    }
+    
+    fileprivate func showErrorDialog(_ error: NetworkError) {
+        switch(error) {
+        case .serverError:
+            self.showErrorAlert("serverError")
+        case .decodingError:
+            self.showErrorAlert("decodingError")
         }
     }
 }

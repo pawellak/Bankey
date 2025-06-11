@@ -31,18 +31,22 @@ extension AccountSummaryViewController {
 
         URLSession.shared.dataTask(with: url) { data, response, error in
             DispatchQueue.main.async {
-                completion(.success(Profile(id: "1", firstName: "firstNamePawel", lastName: "lastNameLak")))
-//                guard let data = data, error == nil else {
-//                    completion(.failure(.serverError))
-//                    return
-//                }
-//                
-//                do {
-//                  
-//                    completion(.success(Profile(id: "1", firstName: "firstNamePawel", lastName: "lastNameLak")))
-//                } catch {
-//                    completion(.failure(.decodingError))
-//                }
+                
+                let jsonString = """
+                    {
+                        "id": "1",
+                        "first_name": "Pawel",
+                        "last_name" : "Lak", 
+                    }
+                    """
+                
+                if let person = jsonStringToModel(jsonString, as: Profile.self) {
+                    completion(.success(person))
+                }else
+                {
+                    completion(.failure(.decodingError))
+                }
+                
             }
         }.resume()
     }
@@ -53,9 +57,8 @@ struct Account: Codable {
     let type: AccountType
     let name: String
     let amount: Decimal
-    let createdDateTime: Date
-    
-    
+    let createdDateTime: Date 
+
     static func makeSkeleton() -> Account {
         return Account(id: "", type: .Banking, name: "Account name", amount: 0, createdDateTime: Date())
     }
@@ -68,34 +71,35 @@ extension AccountSummaryViewController {
         URLSession.shared.dataTask(with: url) { data, response, error in
             DispatchQueue.main.async {
                 
-                let accountList = [
-                    Account(id: "1", type: AccountType.Banking, name: "Banking", amount: 12.14, createdDateTime: Date()),
-                    Account(id: "2", type: AccountType.CreditCard, name: "CreditCard", amount: 12.11, createdDateTime: Date()),
-                    Account(id: "3", type: AccountType.Investment, name: "Investment", amount: 11232.44, createdDateTime: Date())] as [Account]
-                
-                completion(.success(accountList))
-                
-//                guard let data = data, error == nil else {
+//                if error == nil {
 //                    completion(.failure(.serverError))
-//                    return
-//                }
-//                
-//                do {
-//                    let decoder = JSONDecoder()
-////                    decoder.dateDecodingStrategy = .iso8601
-////                    
-////                    let accounts = try decoder.decode([Account].self, from: data)
-//                    
-//                    let accountList = [
-//                        Account(id: "1", type: AccountType.Banking, name: "Banking", amount: 12.14, createdDateTime: Date()),
-//                        Account(id: "2", type: AccountType.CreditCard, name: "CreditCard", amount: 12.11, createdDateTime: Date()),
-//                        Account(id: "3", type: AccountType.Investment, name: "Investment", amount: 11232.44, createdDateTime: Date())] as [Account]
-//                    
-//                    completion(.success(accountList))
-//                } catch {
-//                    completion(.failure(.decodingError))
+//                } else {
+                    let accountList = [
+                        Account(id: "1", type: AccountType.Banking, name: "Banking", amount: 12.14, createdDateTime: Date()),
+                        Account(id: "2", type: AccountType.CreditCard, name: "CreditCard", amount: 12.11, createdDateTime: Date()),
+                        Account(id: "3", type: AccountType.Investment, name: "Investment", amount: 11232.44, createdDateTime: Date())] as [Account]
+                    
+                    completion(.success(accountList))
 //                }
             }
         }.resume()
+    }
+}
+
+func jsonStringToModel<T: Decodable>(_ jsonString: String, as type: T.Type) -> T? {
+    // Convert the string to Data
+    guard let data = jsonString.data(using: .utf8) else {
+        print("Error: Cannot convert string to Data")
+        return nil
+    }
+    
+    // Decode the data to the specified model type
+    do {
+        let decoder = JSONDecoder()
+        let model = try decoder.decode(T.self, from: data)
+        return model
+    } catch {
+        print("Decoding error: \(error.localizedDescription)")
+        return nil
     }
 }
